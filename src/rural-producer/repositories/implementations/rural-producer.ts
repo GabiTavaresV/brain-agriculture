@@ -1,5 +1,5 @@
 import { EntityManager, getManager } from "typeorm";
-import { IFarmData } from "../../interfaces/dtos";
+import { IFarmData } from "../../interfaces/interfaces";
 
 export class RuralProducerRepository {
   private ormRepository: EntityManager;
