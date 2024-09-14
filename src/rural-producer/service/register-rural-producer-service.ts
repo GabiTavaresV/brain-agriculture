@@ -1,4 +1,4 @@
-import { IFarmData, IRegisterRuralProducer } from "../interfaces/dtos";
+import { IFarmData, IRegisterRuralProducer } from "../interfaces/interfaces";
 import { RuralProducerRepository } from "../repositories/implementations/rural-producer";
 
 export class RegisterRuralProducerService {
