@@ -10,9 +10,11 @@ const schema = Joi.object({
 });
 
 export const updateParamsValidator = (req: Request, res: Response, next: NextFunction) => {
-  const { error } = schema.validate(req.body);
+  const { error } = schema.validate(req.body, { convert: false });
+
   if (error) {
     return res.status(400).json({ error: error.details[0].message });
   }
+
   next();
 };
