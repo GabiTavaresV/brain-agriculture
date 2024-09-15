@@ -1,4 +1,4 @@
-import { createConnection, DataSource } from "typeorm";
+import { DataSource } from "typeorm";
 import { config } from "../config/typeorm-config";
 
 export class ConnectionTypeORM {
@@ -17,7 +17,8 @@ export class ConnectionTypeORM {
 
   public async startConnection(): Promise<void> {
     console.log("Stating connection TypeORM");
-    this.con = await createConnection(config());
+    this.con = config;
+    await this.con.initialize();
     console.info("Finished connection TypeORM");
   }
 

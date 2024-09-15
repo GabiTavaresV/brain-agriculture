@@ -1,9 +1,9 @@
-import { ConnectionOptions } from "typeorm";
+import { DataSource } from "typeorm";
 import * as dotenv from "dotenv";
 
 dotenv.config();
 
-export const config = (): ConnectionOptions => ({
+export const config = new DataSource({
   type: "postgres",
   host: process.env.DB_HOST,
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432,
