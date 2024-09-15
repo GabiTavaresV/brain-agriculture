@@ -1,29 +1,19 @@
 import { Request, Response } from 'express';
 
 import { makeBaseService } from '../factories/make-base-service';
+import { IRegisterRuralProducer, IUpdateParams } from '../interfaces/interfaces';
 import { DeleteRuralProducerService } from '../service/delete-rural-producer-service';
 import { RegisterRuralProducerService } from '../service/register-rural-producer-service';
 import { UpdateRuralProducerService } from '../service/update-rural-producer-service';
 
 export class RuralProducerController {
   public async register(request: Request, response: Response): Promise<Response> {
-    const { taxId, producerName, farmName, city, state, totalFarmArea, arableArea, vegetationArea, plantedCrops } =
-      request.body;
+    const registerParams: IRegisterRuralProducer = request.body;
 
     const registerService = makeBaseService(RegisterRuralProducerService);
 
     try {
-      await registerService.execute({
-        taxId,
-        producerName,
-        farmName,
-        city,
-        state,
-        totalFarmArea,
-        arableArea,
-        vegetationArea,
-        plantedCrops,
-      });
+      await registerService.execute(registerParams);
 
       return response.status(201).json({ message: 'Produtor Rural cadastrado com sucesso!' });
     } catch (error: any) {
@@ -36,32 +26,35 @@ export class RuralProducerController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { totalFarmArea, arableArea, vegetationArea, plantedCrops } = request.body;
-
     const { id } = request.params;
+    const updateParams: IUpdateParams = request.body;
 
     const updateService = makeBaseService(UpdateRuralProducerService);
 
-    await updateService.execute({
-      id,
-      totalFarmArea,
-      arableArea,
-      vegetationArea,
-      plantedCrops,
-    });
+    try {
+      await updateService.execute({ ...updateParams, id });
 
-    return response.status(200).json({ message: ' Produtor Rural atualizado com sucesso!' });
+      return response.status(200).json({ message: 'Dados atualizados com sucesso!' });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
+
+      return response.status(400).json({ message: errorMessage });
+    }
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    const { taxId } = request.params;
+    const { id } = request.params;
 
     const deleteService = makeBaseService(DeleteRuralProducerService);
 
-    await deleteService.execute({
-      taxId,
-    });
+    try {
+      await deleteService.execute({ id });
 
-    return response.status(200).json({ message: ' Produtor excluido com sucesso!' });
+      return response.status(200).json({ message: 'Produtor excluído com sucesso!' });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
+
+      return response.status(400).json({ message: errorMessage });
+    }
   }
 }
