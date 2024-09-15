@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-import { authenticateToken } from '../../middleware/authenticateToken';
-import { registerParamsValidator } from '../../middleware/registerParamsValidator';
-import { updateParamsValidator } from '../../middleware/updateParamsValidator';
+import { authenticateToken } from '../../middleware/authenticate-token';
+import { registerParamsValidator } from '../../middleware/register-params-validator';
+import { updateParamsValidator } from '../../middleware/update-params-validator';
 import { RuralProducerController } from '../controller/rural-producer-controller';
 
 export const agricultureRouter = Router();
