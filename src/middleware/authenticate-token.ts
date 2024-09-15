@@ -7,7 +7,6 @@ dotenv.config();
 
 const secretKey = process.env.SECRET_KEY || '';
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const authenticateToken = (request: Request, response: Response, next: NextFunction) => {
   const authHeader = request.headers.authorization;
 
