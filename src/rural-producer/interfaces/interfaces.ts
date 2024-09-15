@@ -24,3 +24,11 @@ export interface IFarmData {
   created_at: Date;
   updated_at: Date;
 }
+
+export interface IUpdateParams {
+  id: string;
+  totalFarmArea?: number;
+  arableArea?: number;
+  vegetationArea?: number;
+  plantedCrops?: string[];
+}
