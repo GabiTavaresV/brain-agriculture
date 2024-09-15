@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 
 import { config } from '../../../config/typeorm-config';
-import { IFarmData } from '../../interfaces/interfaces';
+import { IFarmData, IRegisterRuralProducer, IUpdateParams } from '../../interfaces/interfaces';
 import { FarmData } from '../entity/rural-producer';
 
 export class RuralProducerRepository {
@@ -21,7 +21,7 @@ export class RuralProducerRepository {
     arableArea,
     vegetationArea,
     plantedCrops,
-  }: any): Promise<IFarmData> {
+  }: IRegisterRuralProducer): Promise<IFarmData> {
     const result = await this.ormRepository.query(
       `INSERT INTO brain_agriculture.farm_data (
         tax_id, producer_name, farm_name, city, state, total_farm_area, arable_area, vegetation_area, planted_crops
@@ -32,7 +32,7 @@ export class RuralProducerRepository {
     return result[0];
   }
 
-  public async update({ id, totalFarmArea, arableArea, vegetationArea, plantedCrops }: any): Promise<any> {
+  public async update({ id, totalFarmArea, arableArea, vegetationArea, plantedCrops }: IUpdateParams): Promise<any> {
     let query = `UPDATE brain_agriculture.farm_data SET `;
     const params: any[] = [];
     let index = 1;
@@ -91,22 +91,40 @@ export class RuralProducerRepository {
     return parseFloat(result[0].sum);
   }
 
-  public async getFarmsByState(): Promise<any> {
+  public async getFarmsByState(): Promise<number> {
     return this.ormRepository.query(`SELECT state, COUNT(*) as count FROM brain_agriculture.farm_data GROUP BY state`);
   }
 
-  public async getFarmsByCrop(): Promise<any> {
+  public async getFarmsByCrop(): Promise<number> {
     return this.ormRepository.query(
       `SELECT planted_crops, COUNT(*) as count FROM brain_agriculture.farm_data GROUP BY planted_crops`,
     );
   }
 
-  public async getLandUse(): Promise<any> {
+  public async getLandUse(): Promise<number> {
     return this.ormRepository.query(
       `SELECT
         SUM(arable_area) as total_arable_area,
         SUM(vegetation_area) as total_vegetation_area
       FROM brain_agriculture.farm_data`,
     );
+  }
+
+  public async isAlreadyDeleted(id: string): Promise<boolean> {
+    const result = await this.ormRepository.query(`SELECT deleted_at FROM brain_agriculture.farm_data WHERE id = $1`, [
+      id,
+    ]);
+
+    return result.length > 0 && result[0].deleted_at !== null;
+  }
+
+  public async findById(id: string): Promise<FarmData | null> {
+    const result = await this.ormRepository.query('SELECT * FROM brain_agriculture.farm_data WHERE id = $1', [id]);
+
+    if (result.length > 0) {
+      return result[0];
+    }
+
+    return null;
   }
 }
