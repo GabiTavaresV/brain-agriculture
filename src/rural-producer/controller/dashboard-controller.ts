@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { DashboardService } from "../service/dashboard-service";
 import { RuralProducerRepository } from "../repositories/implementations/rural-producer";
+import { makeBaseService } from "../factories/make-base-service";
 
 export class DashboardController {
   public async totalFarms(_request: Request, response: Response) {
     try {
-      const repository = new RuralProducerRepository();
-      const dashboardService = new DashboardService(repository);
+      const dashboardService = makeBaseService(DashboardService);
 
       const totalFarms = await dashboardService.totalFarms();
 
@@ -18,8 +18,7 @@ export class DashboardController {
   }
   public async totalArea(_request: Request, response: Response) {
     try {
-      const repository = new RuralProducerRepository();
-      const dashboardService = new DashboardService(repository);
+      const dashboardService = makeBaseService(DashboardService);
 
       const totalArea = await dashboardService.totalArea();
 
@@ -31,8 +30,7 @@ export class DashboardController {
   }
   public async statesPieChart(_request: Request, response: Response) {
     try {
-      const repository = new RuralProducerRepository();
-      const dashboardService = new DashboardService(repository);
+      const dashboardService = makeBaseService(DashboardService);
 
       const statesPieChart = await dashboardService.statesPieChart();
 
@@ -45,7 +43,7 @@ export class DashboardController {
   public async cropsPieChart(_request: Request, response: Response) {
     try {
       const repository = new RuralProducerRepository();
-      const dashboardService = new DashboardService(repository);
+      const dashboardService = makeBaseService(DashboardService);
 
       const cropsPieChart = await dashboardService.cropsPieChart();
 
@@ -57,8 +55,7 @@ export class DashboardController {
   }
   public async landUsePieChart(_request: Request, response: Response) {
     try {
-      const repository = new RuralProducerRepository();
-      const dashboardService = new DashboardService(repository);
+      const dashboardService = makeBaseService(DashboardService);
 
       const landUsePieChart = await dashboardService.landUsePieChart();
 
