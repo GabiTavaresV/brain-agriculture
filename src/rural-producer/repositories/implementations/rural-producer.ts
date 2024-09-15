@@ -1,11 +1,13 @@
-import { EntityManager, getManager } from "typeorm";
+import { Repository } from "typeorm";
 import { IFarmData } from "../../interfaces/interfaces";
+import { FarmData } from "../entity/rural-producer";
+import { config } from "../../../config/typeorm-config";
 
 export class RuralProducerRepository {
-  private ormRepository: EntityManager;
+  private ormRepository: Repository<FarmData>;
 
-  public constructor() {
-    this.ormRepository = getManager();
+  constructor() {
+    this.ormRepository = config.getRepository(FarmData);
   }
 
   public async create({
@@ -94,6 +96,7 @@ export class RuralProducerRepository {
   }
 
   public async getTotalFarms(): Promise<number> {
+    console.log("passou aqui");
     const result = await this.ormRepository.query(
       `SELECT COUNT(*) FROM brain_agriculture.farm_data`
     );
