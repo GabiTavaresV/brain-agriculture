@@ -1,14 +1,20 @@
-import { RuralProducerRepository } from "../repositories/implementations/rural-producer";
+import { BaseService } from "./base-service";
 
-export class DeleteRuralProducerService {
-  constructor(private readonly repository: RuralProducerRepository) {}
-
-  public async execute({ taxId }: any): Promise<any> {
+export class DeleteRuralProducerService extends BaseService<
+  { taxId: string },
+  { message: string }
+> {
+  public async execute({
+    taxId,
+  }: {
+    taxId: string;
+  }): Promise<{ message: string }> {
     const result = await this.repository.delete({ taxId });
 
-    if (result.rowCount === 0) {
-      throw new Error("Registro não encontrado ou já excluído.");
-    }
+    this.handleNotFound(
+      result.rowCount,
+      "Registro não encontrado ou já excluído."
+    );
 
     return { message: "Produtor Rural excluído com sucesso." };
   }

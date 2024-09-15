@@ -1,20 +1,7 @@
-import { RuralProducerRepository } from "../repositories/implementations/rural-producer";
+import { BaseService } from "./base-service";
 
-export class UpdateRuralProducerService {
-  constructor(private readonly repository: RuralProducerRepository) {}
-  public async execute({
-    id,
-    totalFarmArea,
-    arableArea,
-    vegetationArea,
-    plantedCrops,
-  }: any): Promise<any> {
-    return this.repository.update({
-      id,
-      totalFarmArea,
-      arableArea,
-      vegetationArea,
-      plantedCrops,
-    });
+export class UpdateRuralProducerService extends BaseService<any, any> {
+  public async execute(input: any): Promise<any> {
+    return this.repository.update(input);
   }
 }
