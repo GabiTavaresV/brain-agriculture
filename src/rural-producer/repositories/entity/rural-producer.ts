@@ -1,34 +1,43 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class RuralProducer {
+export class FarmData {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  taxId: string;
+  @Column({ type: "varchar" })
+  tax_id: string;
 
-  @Column()
-  producerName: string;
+  @Column({ type: "varchar" })
+  producer_name: string;
 
-  @Column()
-  farmName: string;
+  @Column({ type: "varchar" })
+  farm_name: string;
 
-  @Column()
+  @Column({ type: "varchar" })
   city: string;
 
-  @Column()
+  @Column({ type: "varchar" })
   state: string;
 
-  @Column()
-  totalAreaFarm: string;
+  @Column({ type: "decimal" })
+  total_area_farm: number;
 
-  @Column()
-  arableArea: string;
+  @Column({ type: "decimal" })
+  arable_area: number;
 
-  @Column()
-  vegetationArea: string;
+  @Column({ type: "decimal" })
+  vegetation_area: number;
 
-  @Column()
-  plantedCrops: string;
+  @Column({ type: "text", array: true })
+  planted_crops: string[];
+
+  @Column({ type: "timestamp" })
+  created_at: Date;
+
+  @Column({ type: "timestamp" })
+  updated_at: Date;
+
+  @Column({ type: "timestamp" })
+  deleted_at: Date;
 }
