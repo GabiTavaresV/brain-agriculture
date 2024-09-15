@@ -118,7 +118,7 @@ export class RuralProducerRepository {
     return result.length > 0 && result[0].deleted_at !== null;
   }
 
-  public async findById(id: string): Promise<FarmData | null> {
+  public async findById(id: string): Promise<IFarmData | null> {
     const result = await this.ormRepository.query('SELECT * FROM brain_agriculture.farm_data WHERE id = $1', [id]);
 
     if (result.length > 0) {
