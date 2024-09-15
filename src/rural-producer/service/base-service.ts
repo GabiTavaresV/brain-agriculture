@@ -1,7 +1,7 @@
-import { RuralProducerRepository } from "../repositories/implementations/rural-producer";
+import { RuralProducerRepository } from '../repositories/implementations/rural-producer';
 
 export abstract class BaseService<TInput, TOutput> {
-  constructor(protected readonly repository: RuralProducerRepository) {}
+  public constructor(protected readonly repository: RuralProducerRepository) {}
 
   public abstract execute(input: TInput): Promise<TOutput>;
 

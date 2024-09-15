@@ -1,12 +1,13 @@
-import { Repository } from "typeorm";
-import { IFarmData } from "../../interfaces/interfaces";
-import { FarmData } from "../entity/rural-producer";
-import { config } from "../../../config/typeorm-config";
+import { Repository } from 'typeorm';
+
+import { config } from '../../../config/typeorm-config';
+import { IFarmData } from '../../interfaces/interfaces';
+import { FarmData } from '../entity/rural-producer';
 
 export class RuralProducerRepository {
   private ormRepository: Repository<FarmData>;
 
-  constructor() {
+  public constructor() {
     this.ormRepository = config.getRepository(FarmData);
   }
 
@@ -26,28 +27,12 @@ export class RuralProducerRepository {
         tax_id, producer_name, farm_name, city, state, total_farm_area, arable_area, vegetation_area, planted_crops
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9::TEXT[])
         RETURNING * `,
-      [
-        taxId,
-        producerName,
-        farmName,
-        city,
-        state,
-        totalFarmArea,
-        arableArea,
-        vegetationArea,
-        plantedCrops,
-      ]
+      [taxId, producerName, farmName, city, state, totalFarmArea, arableArea, vegetationArea, plantedCrops],
     );
     return result[0];
   }
 
-  public async update({
-    id,
-    totalFarmArea,
-    arableArea,
-    vegetationArea,
-    plantedCrops,
-  }: any) {
+  public async update({ id, totalFarmArea, arableArea, vegetationArea, plantedCrops }: any): Promise<any> {
     let query = `UPDATE brain_agriculture.farm_data SET `;
     const params: any[] = [];
     let index = 1;
@@ -71,56 +56,48 @@ export class RuralProducerRepository {
 
     query += `updated_at = NOW()`;
 
-    query = query.replace(/, \s*$/, "");
+    query = query.replace(/, \s*$/, '');
     query += ` WHERE id = $${index}`;
     params.push(id);
 
     return this.ormRepository.query(query, params);
   }
 
-  public async delete({ id }: any) {
+  public async delete({ id }: any): Promise<any> {
     return this.ormRepository.query(
       `UPDATE brain_agriculture.farm_data
        SET deleted_at = NOW()
        WHERE id = $1`,
-      [id]
+      [id],
     );
   }
 
   public async exists(taxId: string): Promise<boolean> {
     const result = await this.ormRepository.query(
       `SELECT COUNT(*) FROM brain_agriculture.farm_data WHERE tax_id = $1`,
-      [taxId]
+      [taxId],
     );
     return parseInt(result[0].count, 10) > 0;
   }
 
   public async getTotalFarms(): Promise<number> {
-    console.log("passou aqui");
-    const result = await this.ormRepository.query(
-      `SELECT COUNT(*) FROM brain_agriculture.farm_data`
-    );
+    const result = await this.ormRepository.query(`SELECT COUNT(*) FROM brain_agriculture.farm_data`);
 
-    console.log("result", parseInt(result[0].count, 10));
     return parseInt(result[0].count, 10);
   }
 
   public async getTotalArea(): Promise<number> {
-    const result = await this.ormRepository.query(
-      `SELECT SUM(total_farm_area) FROM brain_agriculture.farm_data`
-    );
+    const result = await this.ormRepository.query(`SELECT SUM(total_farm_area) FROM brain_agriculture.farm_data`);
     return parseFloat(result[0].sum);
   }
 
   public async getFarmsByState(): Promise<any> {
-    return this.ormRepository.query(
-      `SELECT state, COUNT(*) as count FROM brain_agriculture.farm_data GROUP BY state`
-    );
+    return this.ormRepository.query(`SELECT state, COUNT(*) as count FROM brain_agriculture.farm_data GROUP BY state`);
   }
 
   public async getFarmsByCrop(): Promise<any> {
     return this.ormRepository.query(
-      `SELECT planted_crops, COUNT(*) as count FROM brain_agriculture.farm_data GROUP BY planted_crops`
+      `SELECT planted_crops, COUNT(*) as count FROM brain_agriculture.farm_data GROUP BY planted_crops`,
     );
   }
 
@@ -129,7 +106,7 @@ export class RuralProducerRepository {
       `SELECT
         SUM(arable_area) as total_arable_area,
         SUM(vegetation_area) as total_vegetation_area
-      FROM brain_agriculture.farm_data`
+      FROM brain_agriculture.farm_data`,
     );
   }
 }

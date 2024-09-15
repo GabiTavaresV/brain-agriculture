@@ -1,7 +1,10 @@
-import { Request, Response, NextFunction } from "express";
-import Joi from "joi";
+import { NextFunction, Request, Response } from 'express';
 
+import Joi from 'joi';
+
+// eslint-disable-next-line no-useless-escape
 const cpfRegex = /^(\d{3}\.\d{3}\.\d{3}\-\d{2}|\d{11})$/;
+// eslint-disable-next-line no-useless-escape
 const cnpjRegex = /^(\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}|\d{14})$/;
 
 const schema = Joi.object({
@@ -11,8 +14,8 @@ const schema = Joi.object({
         return value;
       }
 
-      return helpers.error("any.invalid", {
-        message: "taxId deve ser um CPF ou CNPJ válido",
+      return helpers.error('any.invalid', {
+        message: 'taxId deve ser um CPF ou CNPJ válido',
       });
     })
     .required(),
@@ -24,17 +27,11 @@ const schema = Joi.object({
   totalFarmArea: Joi.number().precision(2).min(0).required(),
   arableArea: Joi.number().precision(2).min(0).required(),
   vegetationArea: Joi.number().precision(2).min(0).required(),
-  plantedCrops: Joi.array()
-    .items(Joi.string().min(2).max(30))
-    .min(1)
-    .required(),
+  plantedCrops: Joi.array().items(Joi.string().min(2).max(30)).min(1).required(),
 });
 
-export const registerParamsValidator = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export const registerParamsValidator = (req: Request, res: Response, next: NextFunction) => {
   const { error } = schema.validate(req.body);
   if (error) {
     return res.status(400).json({ error: error.details[0].message });
