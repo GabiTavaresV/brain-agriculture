@@ -110,11 +110,30 @@ O usuário tem acesso aos seguintes endpoints:
 - Exclusão de produtores rurais
 - Exibir totais para o Dashboard
 
+  \*\* <i>Os Endpoints de Cadatro, Edição e Exclusão necessitam de um token para autenticação</i>.
+
+#### Login para gerar o Token JWT para autenticação
+
+```sh
+    endpont local: POST http://localhost:3000/login
+```
+
+Body de exemplo
+
+```json
+{
+  "username": "seuNome",
+  "password": "123"
+}
+```
+
 #### Cadastra um novo produtor rural
 
 ```sh
     endpont local: POST http://localhost:3000/agriculture/register/rural-producer
 ```
+
+**Enviar o token gerado no endpont <i>login</i> no authorization -> Bearer token**
 
 Body de exemplo
 
@@ -138,6 +157,8 @@ Body de exemplo
     endpont local: PATCH http://localhost:3000/agriculture/update/rural-producer/:id
 ```
 
+**Enviar o token gerado no endpont <i>login</i> no authorization -> Bearer token**
+
 Body de exemplo
 
 ```json
@@ -155,6 +176,8 @@ Body de exemplo
 ```sh
     endpont local: DELETE http://localhost:3000/agriculture/delete/rural-producer/:id
 ```
+
+**Enviar o token gerado no endpont <i>login</i> no authorization -> Bearer token**
 
 #### Lista total de fazendas em quantidade
 
