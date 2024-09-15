@@ -8,10 +8,4 @@ export abstract class BaseService<TInput, TOutput> {
   protected async checkIfExists(taxId: string): Promise<boolean> {
     return this.repository.exists(taxId);
   }
-
-  protected handleNotFound(rowCount: number, message: string): void {
-    if (rowCount === 0) {
-      throw new Error(message);
-    }
-  }
 }
