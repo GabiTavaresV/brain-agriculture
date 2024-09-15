@@ -17,10 +17,9 @@ export class ConnectionTypeORM {
   }
 
   public async startConnection(): Promise<void> {
-    console.log('Stating connection TypeORM');
+    console.info('Stating connection TypeORM');
     this.con = config;
     await this.con.initialize();
-    console.info('Finished connection TypeORM');
   }
 
   public async getConnection(): Promise<DataSource> {
