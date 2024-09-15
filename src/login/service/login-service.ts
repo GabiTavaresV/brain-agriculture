@@ -1,9 +1,6 @@
-import * as dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 
 import { ILoginService } from '../../rural-producer/interfaces/login-service';
-
-dotenv.config();
 
 export class LoginService implements ILoginService {
   public async generateToken(credentials: { username: string; password: string }): Promise<string> {

@@ -1,6 +1,4 @@
-import * as dotenv from 'dotenv';
-
-dotenv.config();
+import './config/dotenv';
 import { app } from './app';
 import { ConnectionTypeORM } from './database/connection-typeorm';
 
