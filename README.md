@@ -55,7 +55,7 @@ O projeto foi criado usando as tecnologias:
     npm install
 ```
 
-4. Configurar banco
+3. Configurar banco
 
 Crie uma conexão com o postgres, com a seguinte estrutura:
 
@@ -85,7 +85,7 @@ CREATE TABLE farm_data (
 );
 ```
 
-3. Executar a API localmente
+4. Executar a API localmente
 
 ```sh
     npm run start:dev
