@@ -5,8 +5,8 @@ import {
   DeleteResponse,
   FarmResponse,
   RegisterRuralProducerParams,
+  StatesPieChartResponse,
   TotaFarmsByCropResponse,
-  TotaFarmsByStateResponse,
   TotaLandUseResponse,
   TotalAreaResponse,
   TotalFarmsResponse,
@@ -110,7 +110,7 @@ export class RuralProducerRepository {
     return { totalArea };
   }
 
-  public async getFarmsByState(): Promise<TotaFarmsByStateResponse> {
+  public async getFarmsByState(): Promise<StatesPieChartResponse> {
     const totaFarmsByState = await this.ormRepository.query(
       `SELECT state, COUNT(*) as count FROM brain_agriculture.farm_data GROUP BY state`,
     );

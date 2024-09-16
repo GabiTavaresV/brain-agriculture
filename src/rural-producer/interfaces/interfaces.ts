@@ -46,6 +46,10 @@ export interface TotaFarmsByStateResponse {
   count: number;
 }
 
+export interface StatesPieChartResponse {
+  statesPieChart: TotaFarmsByStateResponse[];
+}
+
 export interface TotaFarmsByCropResponse {
   planted_crops: string[];
   count: number;
@@ -69,7 +73,7 @@ export interface DeleteResponse {
 export interface DashboardServiceInterface {
   totalFarms(): Promise<TotalFarmsResponse>;
   totalArea(): Promise<TotalAreaResponse>;
-  statesPieChart(): Promise<TotaFarmsByStateResponse>;
+  statesPieChart(): Promise<StatesPieChartResponse>;
   cropsPieChart(): Promise<TotaFarmsByCropResponse>;
   landUsePieChart(): Promise<TotaLandUseResponse>;
 }
