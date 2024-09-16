@@ -1,8 +1,8 @@
 import { BaseService } from './base-service';
-import { IFarmData, IUpdateParams } from '../interfaces/interfaces';
+import { UpdateParams, UpdateResponse } from '../interfaces/interfaces';
 
-export class UpdateRuralProducerService extends BaseService<IUpdateParams, IFarmData> {
-  public async execute(input: IUpdateParams): Promise<IFarmData> {
+export class UpdateRuralProducerService extends BaseService<UpdateParams, UpdateResponse> {
+  public async execute(input: UpdateParams): Promise<UpdateResponse> {
     const hasAtLeastOneParam =
       input.totalFarmArea !== undefined ||
       input.arableArea !== undefined ||

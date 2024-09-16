@@ -1,6 +1,6 @@
-import { IRegisterRuralProducer } from '../../../interfaces/interfaces';
+import { RegisterRuralProducerParams } from '../../../interfaces/interfaces';
 
-export const registerRuralProducerInput: IRegisterRuralProducer = {
+export const registerRuralProducerInput: RegisterRuralProducerParams = {
   taxId: '123',
   producerName: 'Teste da Silva',
   farmName: 'Fazenda Teste',
@@ -12,7 +12,7 @@ export const registerRuralProducerInput: IRegisterRuralProducer = {
   plantedCrops: ['arroz', 'feijão'],
 };
 
-export const registerarableAreaVegetationAreaInput: IRegisterRuralProducer = {
+export const registerarableAreaVegetationAreaInput: RegisterRuralProducerParams = {
   taxId: '123',
   producerName: 'Teste da Silva',
   farmName: 'Fazenda Teste',

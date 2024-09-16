@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 
 import { makeBaseService } from '../factories/make-base-service';
-import { IRegisterRuralProducer, IUpdateParams } from '../interfaces/interfaces';
+import { RegisterRuralProducerParams, UpdateParams } from '../interfaces/interfaces';
 import { DeleteRuralProducerService } from '../service/delete-rural-producer-service';
 import { RegisterRuralProducerService } from '../service/register-rural-producer-service';
 import { UpdateRuralProducerService } from '../service/update-rural-producer-service';
 
 export class RuralProducerController {
   public async register(request: Request, response: Response): Promise<Response> {
-    const registerParams: IRegisterRuralProducer = request.body;
+    const registerParams: RegisterRuralProducerParams = request.body;
 
     const registerService = makeBaseService(RegisterRuralProducerService);
 
@@ -27,7 +27,7 @@ export class RuralProducerController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const updateParams: IUpdateParams = request.body;
+    const updateParams: UpdateParams = request.body;
 
     const updateService = makeBaseService(UpdateRuralProducerService);
 

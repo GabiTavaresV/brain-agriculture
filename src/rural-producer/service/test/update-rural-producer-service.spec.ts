@@ -1,4 +1,4 @@
-import { IUpdateParams } from '../../interfaces/interfaces';
+import { UpdateParams } from '../../interfaces/interfaces';
 import { UpdateRuralProducerService } from '../update-rural-producer-service';
 
 describe('UpdateRuralProducerService', () => {
@@ -14,7 +14,7 @@ describe('UpdateRuralProducerService', () => {
   });
 
   it('should throw an error if no parameters are provided', async () => {
-    await expect(service.execute({} as IUpdateParams)).rejects.toThrow(
+    await expect(service.execute({} as UpdateParams)).rejects.toThrow(
       'Pelo menos um parâmetro deve ser fornecido para atualização.',
     );
   });
@@ -22,7 +22,7 @@ describe('UpdateRuralProducerService', () => {
   it('should throw an error if the record is not found', async () => {
     repositoryMock.findById.mockResolvedValue(null);
 
-    await expect(service.execute({ id: 1, arableArea: 500 } as unknown as IUpdateParams)).rejects.toThrow(
+    await expect(service.execute({ id: 1, arableArea: 500 } as unknown as UpdateParams)).rejects.toThrow(
       'Registro não encontrado.',
     );
   });
@@ -39,7 +39,7 @@ describe('UpdateRuralProducerService', () => {
         id: '1',
         arableArea: 500,
         vegetationArea: 30,
-      } as IUpdateParams),
+      } as UpdateParams),
     ).rejects.toThrow('A soma da área agricultável e da vegetação não pode ser maior que a área total da fazenda.');
   });
 
@@ -50,7 +50,7 @@ describe('UpdateRuralProducerService', () => {
       vegetation_area: 50,
     });
 
-    const updateInput: IUpdateParams = {
+    const updateInput: UpdateParams = {
       id: '1',
       arableArea: 60,
       vegetationArea: 60,

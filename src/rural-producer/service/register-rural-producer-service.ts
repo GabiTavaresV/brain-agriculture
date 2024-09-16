@@ -1,9 +1,9 @@
 import { BaseService } from './base-service';
 import { formatTaxId } from '../../utils/format-taxId';
-import { IFarmData, IRegisterRuralProducer } from '../interfaces/interfaces';
+import { FarmResponse, RegisterRuralProducerParams } from '../interfaces/interfaces';
 
-export class RegisterRuralProducerService extends BaseService<IRegisterRuralProducer, IFarmData> {
-  public async execute(input: IRegisterRuralProducer): Promise<IFarmData> {
+export class RegisterRuralProducerService extends BaseService<RegisterRuralProducerParams, FarmResponse> {
+  public async execute(input: RegisterRuralProducerParams): Promise<FarmResponse> {
     const { taxId, arableArea, vegetationArea, totalFarmArea } = input;
 
     const formattedTaxId = formatTaxId(taxId);
