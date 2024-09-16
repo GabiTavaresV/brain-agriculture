@@ -1,3 +1,5 @@
+import { PlantedCropsEnum } from '../enum/planted-crops';
+
 export interface RegisterRuralProducerParams {
   taxId: string;
   producerName: string;
@@ -7,7 +9,7 @@ export interface RegisterRuralProducerParams {
   totalFarmArea: number;
   arableArea: number;
   vegetationArea: number;
-  plantedCrops: string[];
+  plantedCrops: PlantedCropsEnum[];
 }
 
 export interface UpdateParams {
@@ -15,7 +17,7 @@ export interface UpdateParams {
   totalFarmArea?: number;
   arableArea?: number;
   vegetationArea?: number;
-  plantedCrops?: string[];
+  plantedCrops?: PlantedCropsEnum[];
 }
 
 export interface FarmResponse {
