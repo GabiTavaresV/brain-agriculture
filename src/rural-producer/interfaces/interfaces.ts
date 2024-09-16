@@ -1,4 +1,4 @@
-export interface IRegisterRuralProducer {
+export interface RegisterRuralProducerParams {
   taxId: string;
   producerName: string;
   farmName: string;
@@ -10,7 +10,15 @@ export interface IRegisterRuralProducer {
   plantedCrops: string[];
 }
 
-export interface IFarmData {
+export interface UpdateParams {
+  id: string;
+  totalFarmArea?: number;
+  arableArea?: number;
+  vegetationArea?: number;
+  plantedCrops?: string[];
+}
+
+export interface FarmResponse {
   id: number;
   tax_id: string;
   producer_name: string;
@@ -25,10 +33,43 @@ export interface IFarmData {
   updated_at: Date;
 }
 
-export interface IUpdateParams {
-  id: string;
-  totalFarmArea?: number;
-  arableArea?: number;
-  vegetationArea?: number;
-  plantedCrops?: string[];
+export interface TotalFarmsResponse {
+  totalFarms: number;
+}
+
+export interface TotalAreaResponse {
+  totalArea: number;
+}
+
+export interface TotaFarmsByStateResponse {
+  state: string;
+  count: number;
+}
+
+export interface TotaFarmsByCropResponse {
+  planted_crops: string[];
+  count: number;
+}
+
+export interface TotaLandUseResponse {
+  total_arable_area: number;
+  total_vegetation_area: number;
+}
+
+export interface UpdateResponse {
+  rows: any[];
+  affectedRows: number;
+}
+
+export interface DeleteResponse {
+  rows: any[];
+  affectedRows: number;
+}
+
+export interface DashboardServiceInterface {
+  totalFarms(): Promise<TotalFarmsResponse>;
+  totalArea(): Promise<TotalAreaResponse>;
+  statesPieChart(): Promise<TotaFarmsByStateResponse>;
+  cropsPieChart(): Promise<TotaFarmsByCropResponse>;
+  landUsePieChart(): Promise<TotaLandUseResponse>;
 }
